@@ -1,0 +1,24 @@
+{
+  "name": "coffy",
+  "version": "1.0.0",
+  "description": "finding neighbor location app",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phan Tien Tung",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.3.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "nunjucks": "^3.0.0",
+    "path": "^0.12.7",
+    "pg-monitor": "^0.7.1",
+    "pg-promise": "^5.6.4"
+  }
+}

@@ -1,0 +1,258 @@
+* {
+    box-sizing: border-box;
+    margin: auto;
+}
+
+@font-face {
+    font-family: 'libre_baskervilleregular';
+    src: url('fonts/librebaskerville-regular-webfont.eot');
+    src: url('fonts/librebaskerville-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/librebaskerville-regular-webfont.svg#libre_baskervilleregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: 'libre_baskervilleregular';
+    font-size: 1.5em;
+    background: rgba(211, 211, 211, 0.39);
+}
+
+a{
+    color: #000000;
+}
+a:hover{
+    text-decoration: none;
+}
+
+.container {
+    padding: 0px;
+}
+
+.navbar-toggle {
+    float: left;
+    padding: 0px;
+    margin: 0px 0.1em;
+    font-size: 3em;
+}
+.navbar {
+    margin-bottom: 0px;
+}
+
+#main-menu{
+    border-bottom-style: groove;
+}
+
+.navbar-nav {
+    margin: 0.5px -7px;
+}
+
+.container>.navbar-header{
+    margin: 0px;
+}
+
+.navbar-nav>li>a {
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.fa.fa-bars{
+    color: #00BCD4;
+}
+
+.select{
+    padding: 0.5em;
+    float: right;
+    color: #282828;
+}
+.content p{
+    font-size: 1.3em;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0.5em;
+}
+.content dd{
+    margin: 1em;
+    color: #a0a0a0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.form-control{
+    height: 2.6em;
+}
+
+.btn{
+    font-size: 16px;
+}
+
+#second-menu {
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
+
+.tops{
+    text-transform: uppercase;
+    text-align: center;
+}
+.tops >ul >li {
+    padding: 0.2em;
+    font-size: 1.4em;
+    background: gold;
+}
+
+.radius{
+    float: right;
+}
+.district{
+    float: right;
+}
+.type{
+    float: right;
+}
+
+.row{
+    margin: auto;
+}
+.row img{
+    width: 100%;
+}
+
+.suggest{
+    visibility: hidden;
+    padding-bottom: 2.5em;
+}
+.suggest >a >p{
+    font-size: 1.5em;
+}
+
+.slidenim {
+    animation-name: slidenim;
+    -webkit-animation-name: slidenim;
+    animation-duration: 1.5s;
+    -webkit-animation-duration: 1.5s;
+    visibility: visible;
+}
+
+@keyframes slidenim {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@-webkit-keyframes slidenim {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(80%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+
+.footer{
+    margin: 5em 0px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    color: white;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.footer-center i {
+    background-color: #33383b;
+    color: #ffffff;
+    font-size: 1.5em;
+    width: 2.375em;
+    height: 2.375em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.625em;
+    margin: 0.5em 0.3em;
+    vertical-align: middle;
+}
+.footer-center p {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+.footer-right i {
+    background-color: #33383b;
+    color: #ffffff;
+    font-size: 1.5em;
+    width: 2.375em;
+    height: 2.375em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.625em;
+    margin: 0.5em 0.3em;
+    vertical-align: middle;
+}
+.footer-right span{
+    display: block;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+.fa.fa-facebook {
+    background: #3B5998;
+}
+.fa.fa-twitter {
+    background: #55ACEE;
+}
+.fa.fa-instagram {
+    background: #125688;
+}
+
+.backtotop{
+    position: fixed;
+    width: 6%;
+    bottom: 0px;
+    right: 6%;
+}
+.backtotop img{
+    width: 100%;
+}
+
+@media (max-width: 768px){
+    .suggestion{
+        padding: 0px;
+        padding-right: 0.5em;
+    }
+}
+@media (min-width: 768px){
+    .suggestion{
+        padding: 0px;
+        padding-right: 0.5em;
+    }
+    .radius{
+        padding: 0px;
+        padding-right: 1em;
+    }
+    .type{
+        padding: 0px;
+    }
+    .district{
+        padding: 0px;
+        margin-right: 1em;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .district{
+        width: 25%;
+        margin-right: 1em;
+    }
+    .type{
+        width: 25%;
+    }
+}
