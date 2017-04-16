@@ -38,24 +38,29 @@ app.get('/find/near', (req, res) => {
     //     uR = req.body['r'];
     let uLong = parseFloat(req.query.long),
         uLat = parseFloat(req.query.lat),
-        uType = req.query.type,
+        uType = parseFloat(req.query.type),
         uR = parseFloat(req.query.r);
     console.log(uR, uType, uLong, uLat);
 
     //let db = promise.db;
-    db.any("SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location WHERE ST_DWithin(geog, ST_Point(${uLong}, ${uLat})::geography, ${uR}) AND id_type = ${uType} LIMIT 10;", {
-        uLong: uLong,
-        uLat: uLat,
-        uR: uR,
-        uType: uType
-    })
+    db.any(
+        //"SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location WHERE ST_DWithin(geog, ST_Point(${uLong}, ${uLat})::geography, ${uR}) AND id_type = ${uType};",
+        "SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location " +
+        "CROSS JOIN (SELECT ST_Point(${uLong}, ${uLat})::geography AS ref_geog) As r WHERE ST_DWithin(geog, ref_geog, ${uR}) " +
+        "AND id_type = ${uType} ORDER BY ST_Distance(geog, ref_geog) LIMIT 30;",
+        {
+            uLong: uLong,
+            uLat: uLat,
+            uR: uR,
+            uType: uType
+        })
         .then(data => {
             //console.log(data);
             async.mapSeries(data, merge2, (err, result) => {
                 let dt = {
                     'datas': result
                 };
-                res.render('index.html', dt);
+                res.render('index1.html', dt);
             });
             // res.json(data);
             // success;
@@ -72,13 +77,13 @@ app.get('/find/near', (req, res) => {
 //GET home page
 app.get('/', (req, res) => {
     //let db = promise.db;
-    db.any("SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location LIMIT 50")
+    db.any("SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location ORDER BY random() LIMIT 30")
         .then(data => {
             async.mapSeries(data, merge2, (err, result) => {
                 let dt = {
                     'datas': result
                 };
-                res.render('index.html', dt);
+                res.render('index1.html', dt);
             });
         })
         .catch(error => {
@@ -100,7 +105,7 @@ app.get('/detail/:id', (req, res) => {
                     'data': result[0]
                 };
                 // console.log(dt);
-                res.render('sp.html', dt);
+                res.render('detail.html', dt);
             });
         })
         .catch(error => {
@@ -119,18 +124,67 @@ app.get('/detail/:id', (req, res) => {
  });*/
 
 
-app.post('/find/dist', (req, res) => {
-    let type = req.body['type'],
-        district = req.body['district'];
+app.post('/find/near', (req, res) => {
+    // let uLong = req.body['long'],
+    //     uLat = req.body['lat'],
+    //     uType = req.body['type'],
+    //     uR = req.body['r'];
+    let uLong = parseFloat(req.body['long']),
+        uLat = parseFloat(req.body['lat']),
+        uType = parseFloat(req.body['type']),
+        uR = parseFloat(req.body['r']);
+    console.log(uR, uType, uLong, uLat);
+
     //let db = promise.db;
-    db.any("SELECT id, name, address, district, octime, rate, lat, long, type FROM public.location WHERE type = ${type} AND district = ${district};", {
-        district: district,
-        type: type
-    })
-        .then(datas => {
-            console.log(datas);
-            res.json(datas);
+    db.any(
+        //"SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location WHERE ST_DWithin(geog, ST_Point(${uLong}, ${uLat})::geography, ${uR}) AND id_type = ${uType};",
+        "SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location " +
+        "CROSS JOIN (SELECT ST_Point(${uLong}, ${uLat})::geography AS ref_geog) As r WHERE ST_DWithin(geog, ref_geog, ${uR}) " +
+        "AND id_type = ${uType} ORDER BY ST_Distance(geog, ref_geog);",
+        {
+            uLong: uLong,
+            uLat: uLat,
+            uR: uR,
+            uType: uType
+        })
+        .then(data => {
+            //console.log(data);
+            async.mapSeries(data, merge2, (err, result) => {
+                let dt = {
+                    'datas': result
+                };
+                res.render('index1.html', dt);
+            });
+            // res.json(data);
             // success;
+        })
+        .catch(error => {
+            console.log(error);
+            // error;
+        });
+    // let results = search.findLoc(uLat, uLong, uType, uR);
+    // console.log(results);
+    // res.json(results);
+});
+
+app.post('/find/dist', (req, res) => {
+    let type = parseFloat(req.body['type']),
+        district = parseFloat(req.body['district']);
+    //let db = promise.db;
+    db.any("SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location " +
+        "WHERE id_type = ${type} AND id_district = ${district};",
+        {
+            district: district,
+            type: type
+        })
+        .then(data => {
+            async.mapSeries(data, merge2, (err, result) => {
+                let dt = {
+                    'datas': result
+                };
+                res.render('index1.html', dt);
+                // success;
+            })
         })
         .catch(error => {
             console.log(error);
@@ -139,7 +193,7 @@ app.post('/find/dist', (req, res) => {
     /*let results = search.findLocInDistrict(type, district);
      console.log(results);
      res.json(results);*/
-});
+})
 
 
 function merge2(item, cb) {

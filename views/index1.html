@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="image/x-icon" rel="shortcut icon" href="/public/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
+
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#" title="TUNGSEVEN"><img
+                    src="/public/img/logo.png" style="width: 50px; margin-top: -15px" alt="logo"
+                    title="TUNGSEVEN"></a>
+            <!--<a class="navbar-brand" href="#">Tungseven</a>-->
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Trang chủ</a></li>
+                <li><a href="#">Mới nhất</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder=" Địa điểm, Nhà hàng...">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void(0)" id="btn-dangnhap"><span class="fix-br"><i
+                        class="glyphicon glyphicon-log-in"></i>Đăng nhập</span></a></li>
+                <li><a href="javascript:void(0)" id="btn-dangki"><span class="fix-br"><i
+                        class="glyphicon glyphicon-user"></i>Đăng kí</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="container-fluid tab">
+
+    <div class="container mieuta">
+        <div class="container" id="second-menu">
+            <div class="row">
+
+                <div class="col-sm-2 col-xs-12 tops">
+                    <ul class="nav">
+                        <li>
+                            <span>Tops</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--<button id="submit" name="submit">FIND</button>-->
+
+                <!--<form action="/" method="post" id="locationSend">-->
+
+                    <div class="col-sm-2 col-xs-12 submit">
+                        <input id="lat" name="lat" >
+                        <input id="long" name="long" >
+                    </div>
+
+                    <div class="col-sm-2 col-xs-12 district">
+                        <select name="district" class="select" id="district" onchange="load_dist()">
+                            <option>- Quận/Huyện -</option>
+                            <option value="1">Quận Hà Đông</option>
+                            <option value="2">Quận Hai Bà Trưng</option>
+                            <option value="3">Quận Hoàn Kiếm</option>
+                            <option value="4">Quận Ba Đình</option>
+                            <option value="5">Quận Thanh Xuân</option>
+                            <option value="6">Quận Đống Đa</option>
+                            <option value="7">Quận Cầu Giấy</option>
+                            <option value="8">Quận Tây Hồ</option>
+                            <option value="9">Quận Gia Lâm</option>
+                            <option value="10">Quận Hoàng Mai</option>
+                            <option value="11">Quận Nam Từ Liêm</option>
+                            <option value="12">Quận Bắc Từ Liêm</option>
+                            <option value="13">Quận Long Biên</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 col-xs-12 type">
+                        <select name="type" class="select" id="type" onchange="load_near()">
+                            <option>- Thể loại -</option>
+                            <option value="1">Restaurant</option>
+                            <option value="2" selected="selected">Café/Dessert</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 col-xs-12 radius">
+                        <select name="r" class="select" id="r" onchange="load_near()">
+                            <option>- Khoảng cách -</option>
+                            <option value="200">200m</option>
+                            <option value="500">500m</option>
+                            <option value="1000" selected="selected">1 km</option>
+                            <option value="2000">2 km</option>
+                            <option value="5000">5 km</option>
+                        </select>
+                    </div>
+                <!--</form>-->
+            </div>
+        </div>
+
+        <p id="demo"></p>
+
+        <div class="container">
+            <div class="row">
+                {% for data in datas %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="{{ data.image }}">
+                                <div class="image-overlay">
+                                    <a href="/detail/{{ data.id_location }}"><span>Xem Chi Tiết</span></a>
+                                    <!--<a href="detail.html"><span>Đạt hàng</span></a>-->
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>{{ data.rate }}</span>
+                                <a href="detail.html">
+                                    <h3>{{ data.name }}</h3>
+                                </a>
+                                <p>{{ data.address }}, {{ data.district }}, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p>NOT FOUND</p>
+                {% endfor %}
+
+                <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="/public/img/tea3.jpg">
+                                <div class="image-overlay">
+                                    <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>6.9</span>
+                                <a href="detail.html">
+                                    <h3>MoMoTea - Hồ Tùng Mậu</h3>
+                                </a>
+                                <p>62 Hồ Tùng Mậu, Quận Bắc Từ Liêm, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="/public/img/restaurant1.JPG">
+                                <div class="image-overlay">
+                                    <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>9.6</span>
+                                <a href="detail.html">
+                                    <h3>Sasin - Mì Cay 7 Cấp Độ Hàn Quốc</h3>
+                                </a>
+                                <p>54 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="/public/img/cafe1.jpg">
+                                <div class="image-overlay">
+                                    <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>9.6</span>
+                                <a href="detail.html">
+                                    <h3>Starbucks Coffee - IPH Xuân Thủy</h3>
+                                </a>
+                                <p>Tầng 1, IPH, 241 Xuân Thuỷ, Quận Cầu Giấy, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="/public/img/tea5.jpg">
+                                <div class="image-overlay">
+                                    <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>6.9</span>
+                                <a href="detail.html">
+                                    <h3>Trà Sữa Chatime - 89 Hồ Tùng Mậu</h3>
+                                </a>
+                                <p>89 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="/public/img/restaurant2.jpg">
+                                <div class="image-overlay">
+                                    <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>9.6</span>
+                                <a href="detail.html">
+                                    <h3>Phở An - Trần Bình</h3>
+                                </a>
+                                <p>9 Trần Bình, Quận Cầu Giấy, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant3.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>9.6</span>
+                                    <a href="detail.html">
+                                        <h3>Pizza Express - Trần Bình</h3>
+                                    </a>
+                                    <p>6 Trần Bình, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/tea8.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Trà Sữa Feeling Tea - Hồ Tùng Mậu</h3>
+                                    </a>
+                                    <p>112 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant4.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>9.6</span>
+                                    <a href="detail.html">
+                                        <h3>ThaiExpress - IPH Xuân Thủy</h3>
+                                    </a>
+                                    <p>241 Xuân Thủy, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant5.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Kim Oanh - Lẩu & Các Món Nhậu</h3>
+                                    </a>
+                                    <p>95 Hồ Tùng Mậu , Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/tea6.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>9.6</span>
+                                    <a href="detail.html">
+                                        <h3>Ding Tea - Hồ Tùng Mậu</h3>
+                                    </a>
+                                    <p>114 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/tea7.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Trà Sữa Bobapop - Hồ Tùng Mậu</h3>
+                                    </a>
+                                    <p>6 Hồ Tùng Mậu, P.Mai Dịch, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/tea9.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Gongcha Hongkong</h3>
+                                    </a>
+                                    <p>19 Trần Quốc Hoàn, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant9.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>9.6</span>
+                                    <a href="detail.html">
+                                        <h3>Lotteria - Cầu Giấy</h3>
+                                    </a>
+                                    <p>298 Cầu Giấy, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/cafe2.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Highlands Coffee - Indochina Hà Nội</h3>
+                                    </a>
+                                    <p>Tầng 1, IPH, 241 Xuân Thủy, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant7.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>HAT Snack Rounds - Fast Food</h3>
+                                    </a>
+                                    <p>19A Ngõ 9, Trần Quốc Hoàn, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant6.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>9.6</span>
+                                    <a href="detail.html">
+                                        <h3>KFC - IPH</h3>
+                                    </a>
+                                    <p>Tầng 1, IPH, 241 Xuân Thủy, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="suggest">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/public/img/restaurant8.jpg">
+                                    <div class="image-overlay">
+                                        <a href="detail.html"><span>Xem Chi Tiết</span></a>
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>6.9</span>
+                                    <a href="detail.html">
+                                        <h3>Bò Nhúng Dấm 555 - Tô Hiệu</h3>
+                                    </a>
+                                    <p>275 Tô Hiệu, Quận Cầu Giấy, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+
+        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    &lt;!&ndash;<li>&ndash;&gt;
+                    &lt;!&ndash;<a href="#" aria-label="Previous">Previous</a>&ndash;&gt;
+                    &lt;!&ndash;</li>&ndash;&gt;
+                    <li><a class="active" href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li>
+                        <a href="#" aria-label="Next"><i class="fa fa-angle-double-right"
+                                                         aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>-->
+
+    </div>
+</section>
+
+<!-- LOGIN MODAL -->
+<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button> -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                              data-toggle="tab">Đăng nhập</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đăng
+                        kí</a></li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <form class="form-login-signup">
+                            <div class="form-group login-form">
+                                <label for="recipient-name" class="control-label">Email:</label>
+                                <input type="text" class=" col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                       id="email">
+                            </div>
+                            <div class="form-group login-form">
+                                <label for="message-text" class="control-label">Mật khẩu:</label>
+                                <input type="password" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                       id="password">
+                            </div>
+                        </form>
+
+
+                        <div class="btn-login-sign-up">
+                            <div id="lost-pass">
+                                <a href="">Quên mật khẩu?</a>
+                                <input type="checkbox" name="" id=""><span>&nbsp; Ghi nhớ đăng nhập</span>
+                            </div>
+
+                            <div class="socials-login">
+                                <a href="" id="login-fb" class="color-white">
+                                    <span class="fa fa-facebook text-center background-blue"></span>
+                                    <span class="fix-width-social text-center color-blue">Facebook</span>
+                                </a>
+                                <a href="" id="login-gg" class="color-white">
+                                    <span class="fa fa-google-plus text-center background-red"></span>
+                                    <span class="fix-width-social text-center color-red">Google</span>
+                                </a>
+                            </div>
+
+                            <a href="user-dashboard.html">
+                                <button type="button" class="btn btn-primary">Đăng Nhập</button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <form class="form-login-signup">
+
+
+                                <div class="form-group login-form">
+                                    <label for="recipient-name" class="control-label">Email:</label>
+                                    <input type="text" class=" col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                           id="email">
+                                </div>
+
+                                <div class="form-group login-form">
+                                    <label for="message-text" class="control-label">Mật khẩu:</label>
+                                    <input type="password"
+                                           class="col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                           id="password">
+                                </div>
+
+                                <div class="form-group login-form">
+                                    <label for="message-text" class="control-label">Xác nhận mật khẩu:</label>
+                                    <input type="password"
+                                           class="col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                           id="password">
+                                </div>
+
+                                <div class="form-group login-form">
+                                    <label for="recipient-name" class="control-label">Họ tên:</label>
+                                    <input type="text" class=" col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control"
+                                           id="username">
+                                </div>
+
+                                <div class="form-group login-form">
+                                    <label for="recipient-name" class="control-label">Số điện thoại:</label>
+                                    <input type="text" class=" col-xs-12 col-sm-12 col-md-4 col-lg-4 form-control">
+                                </div>
+                            </form>
+                            <div class="btn-login-sign-up">
+                                <a href="">
+                                    <button type="button" class="btn btn-primary">Đăng Kí</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid footer">
+    <div class="row footer-wrap">
+        <div class="container">
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="company">
+                    <h4>
+                        <img src="/public/img/slogan_download_app.png">
+                    </h4>
+                    <ul class="side-nav">
+                        <li><a href="#"><img src="/public/img/icon_google_store.png"><span>Android</span></a></li>
+                        <li><a href="#"><img src="/public/img/icon_apple_store.png"><span>iOS</span> </a></li>
+                        <li><a href="#"><img src="/public/img/icon_windows_store.png"><span>Windows Phone</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--<div class="hidden-xs col-xs-12 col-sm-4 col-md-2 col-lg-4">-->
+            <!--<div class="ketnoi">-->
+            <!--<h3>kết nối</h3>-->
+            <!--<div id="ktimg">-->
+            <!--<img src="/public/img/fb.png">-->
+            <!--<img src="/public/img/gg.png">-->
+            <!--<img src="/public/img/twt.png">-->
+            <!--<img src="/public/img/int.png">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="footer-center">
+                    <h3>Thông tin liên hệ</h3>
+                    <p><i class="fa fa-map-marker"></i> Nguyễn Đình Chiểu, Hai Bà Trưng,
+                        Hà Nội
+                    </p>
+                    <p><i class="fa fa-mobile"></i> 090.220.9011</p>
+                    <p><i class="fa fa-phone"></i> (0240) 3.456.789</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-4">
+                <div class="ketnoi">
+                    <h3>kết nối</h3>
+                    <div id="ktimg">
+                        <img src="/public/img/fb.png">
+                        <img src="/public/img/gg.png">
+                        <img src="/public/img/twt.png">
+                        <img src="/public/img/int.png">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!--<footer class="container-fluid footer">-->
+<!--<span>©TungSeven. Số 14, ngõ 4, Nguyễn Đình Chiểu, quận Hai Bà Trưng, Hà nội, Việt nam.</span>-->
+<!--</footer>-->
+
+<span class="waves-effect" id="btn-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+    </span>
+
+
+<script src="/public/js/jquery-3.2.0.min.js"></script>
+<!--<script>
+
+            function getLocation() {
+                if (navigator.geolocation) {
+
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    console.log("Geolocation is not supported by this browser.");
+                }
+            }
+
+            function showPosition(position) {
+                console.log('AA')
+//                document.getElementById("lat").value = position.coords.latitude;
+//                console.log(position.coords.latitude)
+//                //document.getElementById("long").value = position.coords.longitude;
+
+            }
+
+
+</script>-->
+
+<script>
+    /*$(document).ready(function () {
+        var x = document.getElementById("demo");
+
+        $("#submit").click(function () {
+
+
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $("#lat").val(position.coords.latitude)
+                $("#long").val(position.coords.longitude)
+                $("#locationSend").submit()
+            });
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser."
+        }
+
+
+    }); */
+
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+    function showPosition(position) {
+        document.getElementById('lat').value = position.coords.latitude
+        document.getElementById('long').value = position.coords.longitude
+//            $("#lat").val(position.coords.latitude);
+//            $("#long").val(position.coords.longitude);
+//        console.log(position.coords.latitude, position.coords.longitude)
+    }
+    
+    function load_near() {
+        var data = {
+            lat: $('#lat').val(),
+            long: $('#long').val(),
+            type: $('#type').val(),
+            r: $('#r').val(),
+        }
+        $.ajax({
+            url: "/find/near",
+            type: "POST",
+            dataType: "application/json",
+            data: data
+        })
+    }
+    
+    function load_dist() {
+        var data = {
+            dist: $('#district').val(),
+            type: $('#type').val()
+
+        }
+        $.ajax({
+            url: "/find/dist",
+            type: "POST",
+            dataType: "application/json",
+            data: data
+        })
+    }
+
+</script>
+<script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/js/script.js"></script>
+
+</body>
+</html>
