@@ -31,7 +31,7 @@
 
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Trang chủ</a></li>
+                <li class="active"><a href="/">Trang chủ</a></li>
                 <li><a href="#">Mới nhất</a></li>
             </ul>
             <form class="navbar-form navbar-left">
@@ -72,57 +72,92 @@
 
                 <!--<form action="/" method="post" id="locationSend">-->
 
-                    <div class="col-sm-2 col-xs-12 submit">
-                        <input id="lat" name="lat" >
-                        <input id="long" name="long" >
-                    </div>
+                <div class="col-sm-2 col-xs-12 submit" hidden="hidden">
+                    <form action="/find/near" method="post" id="nearForm">
+                        <input id="inLat" name="inLat">
+                        <input id="inLong" name="inLong">
+                        <input id="inType" name="inType">
+                        <input id="inR" name="inR">
+                    </form>
 
-                    <div class="col-sm-2 col-xs-12 district">
-                        <select name="district" class="select" id="district" onchange="load_dist()">
-                            <option>- Quận/Huyện -</option>
-                            <option value="1">Quận Hà Đông</option>
-                            <option value="2">Quận Hai Bà Trưng</option>
-                            <option value="3">Quận Hoàn Kiếm</option>
-                            <option value="4">Quận Ba Đình</option>
-                            <option value="5">Quận Thanh Xuân</option>
-                            <option value="6">Quận Đống Đa</option>
-                            <option value="7">Quận Cầu Giấy</option>
-                            <option value="8">Quận Tây Hồ</option>
-                            <option value="9">Quận Gia Lâm</option>
-                            <option value="10">Quận Hoàng Mai</option>
-                            <option value="11">Quận Nam Từ Liêm</option>
-                            <option value="12">Quận Bắc Từ Liêm</option>
-                            <option value="13">Quận Long Biên</option>
-                        </select>
-                    </div>
+                    <form action="/find/dist" method="post" id="distForm">
+                        <input id="inDist" name="inDist">
+                        <input id="inType2" name="inType2">
+                    </form>
 
-                    <div class="col-sm-2 col-xs-12 type">
-                        <select name="type" class="select" id="type" onchange="load_near()">
-                            <option>- Thể loại -</option>
-                            <option value="1">Restaurant</option>
-                            <option value="2" selected="selected">Café/Dessert</option>
+                </div>
 
-                        </select>
-                    </div>
+                <div class="col-sm-2 col-xs-12 district">
+                    <select name="district" class="select" id="district" onchange="load_form()">
+                        <option>- Quận/Huyện -</option>
+                        <option value="1">Quận Hà Đông</option>
+                        <option value="2">Quận Hai Bà Trưng</option>
+                        <option value="3">Quận Hoàn Kiếm</option>
+                        <option value="4">Quận Ba Đình</option>
+                        <option value="5">Quận Thanh Xuân</option>
+                        <option value="6">Quận Đống Đa</option>
+                        <option value="7">Quận Cầu Giấy</option>
+                        <option value="8">Quận Tây Hồ</option>
+                        <option value="9">Quận Gia Lâm</option>
+                        <option value="10">Quận Hoàng Mai</option>
+                        <option value="11">Quận Nam Từ Liêm</option>
+                        <option value="12">Quận Bắc Từ Liêm</option>
+                        <option value="13">Quận Long Biên</option>
+                    </select>
+                </div>
 
-                    <div class="col-sm-2 col-xs-12 radius">
-                        <select name="r" class="select" id="r" onchange="load_near()">
-                            <option>- Khoảng cách -</option>
-                            <option value="200">200m</option>
-                            <option value="500">500m</option>
-                            <option value="1000" selected="selected">1 km</option>
-                            <option value="2000">2 km</option>
-                            <option value="5000">5 km</option>
-                        </select>
-                    </div>
+                <div class="col-sm-2 col-xs-12 type">
+                    <select name="type" class="select" id="type" onchange="load_form()">
+                        <option>- Thể loại -</option>
+                        <option value="1">Restaurant</option>
+                        <option value="2" selected="selected">Café/Dessert</option>
+
+                    </select>
+                </div>
+
+                <div class="col-sm-2 col-xs-12 radius">
+                    <select name="r" class="select" id="r" onchange="load_form()">
+                        <option>- Khoảng cách -</option>
+                        <option value="200">200m</option>
+                        <option value="500">500m</option>
+                        <option value="1000">1 km</option>
+                        <option value="2000">2 km</option>
+                        <option value="5000">5 km</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2 col-xs-12 submit">
+                    <input type="button" onclick="nearFunction()" value="FIND NEAR">
+                    <input type="button" onclick="distFunction()" value="FIND DIST">
+                </div>
                 <!--</form>-->
             </div>
         </div>
 
-        <p id="demo"></p>
-
         <div class="container">
             <div class="row">
+                <!--<div id="myApp">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special" v-for="loc in location">
+                        <div class="list">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{{ loc.image }}">
+                                    <div class="image-overlay">
+                                        <a href="/detail/{{ loc.id_location }}"><span>Xem Chi Tiết</span></a>
+                                        &lt;!&ndash;<a href="detail.html"><span>Đạt hàng</span></a>&ndash;&gt;
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <span>{{ loc.rate }}</span>
+                                    <a href="detail.html">
+                                        <h3>{{ loc.name }}</h3>
+                                    </a>
+                                    <p>{{ loc.address }}, {{ loc.district }}, Hà Nội</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
                 {% for data in datas %}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
                     <div class="list">
@@ -514,26 +549,26 @@
 
             </div>
         </div>
-
-        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    &lt;!&ndash;<li>&ndash;&gt;
-                    &lt;!&ndash;<a href="#" aria-label="Previous">Previous</a>&ndash;&gt;
-                    &lt;!&ndash;</li>&ndash;&gt;
-                    <li><a class="active" href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li>
-                        <a href="#" aria-label="Next"><i class="fa fa-angle-double-right"
-                                                         aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>-->
-
     </div>
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                &lt;!&ndash;<li>&ndash;&gt;
+                &lt;!&ndash;<a href="#" aria-label="Previous">Previous</a>&ndash;&gt;
+                &lt;!&ndash;</li>&ndash;&gt;
+                <li><a class="active" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li>
+                    <a href="#" aria-label="Next"><i class="fa fa-angle-double-right"
+                                                     aria-hidden="true"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>-->
+
+
 </section>
 
 <!-- LOGIN MODAL -->
@@ -707,51 +742,33 @@
 
 
 <script src="/public/js/jquery-3.2.0.min.js"></script>
-<!--<script>
-
-            function getLocation() {
-                if (navigator.geolocation) {
-
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                } else {
-                    console.log("Geolocation is not supported by this browser.");
-                }
-            }
-
-            function showPosition(position) {
-                console.log('AA')
-//                document.getElementById("lat").value = position.coords.latitude;
-//                console.log(position.coords.latitude)
-//                //document.getElementById("long").value = position.coords.longitude;
-
-            }
-
-
-</script>-->
+<script src="/public/js/vue.min.js"></script>
+<script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/js/script.js"></script>
 
 <script>
     /*$(document).ready(function () {
-        var x = document.getElementById("demo");
+     var x = document.getElementById("demo");
 
-        $("#submit").click(function () {
-
-
-        });
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                $("#lat").val(position.coords.latitude)
-                $("#long").val(position.coords.longitude)
-                $("#locationSend").submit()
-            });
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser."
-        }
+     $("#submit").click(function () {
 
 
-    }); */
+     });
 
-    
+     if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(function (position) {
+     $("#lat").val(position.coords.latitude)
+     $("#long").val(position.coords.longitude)
+     $("#locationSend").submit()
+     });
+     } else {
+     x.innerHTML = "Geolocation is not supported by this browser."
+     }
+
+
+     }); */
+
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -759,13 +776,13 @@
     }
 
     function showPosition(position) {
-        document.getElementById('lat').value = position.coords.latitude
-        document.getElementById('long').value = position.coords.longitude
+        document.getElementById('inLat').value = position.coords.latitude
+        document.getElementById('inLong').value = position.coords.longitude
 //            $("#lat").val(position.coords.latitude);
 //            $("#long").val(position.coords.longitude);
 //        console.log(position.coords.latitude, position.coords.longitude)
     }
-    
+
     function load_near() {
         var data = {
             lat: $('#lat').val(),
@@ -776,11 +793,21 @@
         $.ajax({
             url: "/find/near",
             type: "POST",
-            dataType: "application/json",
-            data: data
+            dataType: "json",
+            data: data,
+            success: function (result) {
+                console.log(result);
+                var app = new Vue({
+                    el: '#myApp',
+                    data: {
+                        location: result
+                    }
+                })
+
+            }
         })
     }
-    
+
     function load_dist() {
         var data = {
             dist: $('#district').val(),
@@ -795,9 +822,21 @@
         })
     }
 
+    function load_form() {
+        document.getElementById('inDist').value = document.getElementById('district').value;
+        document.getElementById('inType').value = document.getElementById('type').value;
+        document.getElementById('inR').value = document.getElementById('r').value;
+        document.getElementById('inType2').value = document.getElementById('type').value;
+    }
+
+    function nearFunction() {
+        document.getElementById("nearForm").submit();
+    }
+
+    function distFunction() {
+        document.getElementById("distForm").submit();
+    }
 </script>
-<script src="/public/js/bootstrap.min.js"></script>
-<script src="/public/js/script.js"></script>
 
 </body>
 </html>

@@ -129,23 +129,23 @@ app.post('/find/near', (req, res) => {
     //     uLat = req.body['lat'],
     //     uType = req.body['type'],
     //     uR = req.body['r'];
-    let uLong = parseFloat(req.body['long']),
-        uLat = parseFloat(req.body['lat']),
-        uType = parseFloat(req.body['type']),
-        uR = parseFloat(req.body['r']);
+    let uLong = parseFloat(req.body['inLong']),
+        uLat = parseFloat(req.body['inLat']),
+        uType = parseFloat(req.body['inType']),
+        uR = parseFloat(req.body['inR']);
     console.log(uR, uType, uLong, uLat);
 
     //let db = promise.db;
     db.any(
         //"SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location WHERE ST_DWithin(geog, ST_Point(${uLong}, ${uLat})::geography, ${uR}) AND id_type = ${uType};",
         "SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location " +
-        "CROSS JOIN (SELECT ST_Point(${uLong}, ${uLat})::geography AS ref_geog) As r WHERE ST_DWithin(geog, ref_geog, ${uR}) " +
-        "AND id_type = ${uType} ORDER BY ST_Distance(geog, ref_geog);",
+        "CROSS JOIN (SELECT ST_Point(${Long}, ${Lat})::geography AS ref_geog) As r WHERE ST_DWithin(geog, ref_geog, ${R}) " +
+        "AND id_type = ${Type} ORDER BY ST_Distance(geog, ref_geog);",
         {
-            uLong: uLong,
-            uLat: uLat,
-            uR: uR,
-            uType: uType
+            Long: uLong,
+            Lat: uLat,
+            R: uR,
+            Type: uType
         })
         .then(data => {
             //console.log(data);
@@ -154,6 +154,10 @@ app.post('/find/near', (req, res) => {
                     'datas': result
                 };
                 res.render('index1.html', dt);
+
+                //let myJson = result;
+                //console.log(myJson)
+                /*res.json(result)*/
             });
             // res.json(data);
             // success;
@@ -168,14 +172,14 @@ app.post('/find/near', (req, res) => {
 });
 
 app.post('/find/dist', (req, res) => {
-    let type = parseFloat(req.body['type']),
-        district = parseFloat(req.body['district']);
+    let type = parseFloat(req.body['inType2']),
+        district = parseFloat(req.body['inDist']);
     //let db = promise.db;
     db.any("SELECT id_location, name, address, octime, rate, lat, long, id_type, id_district FROM coffy.location " +
-        "WHERE id_type = ${type} AND id_district = ${district};",
+        "WHERE id_type = ${Type} AND id_district = ${District};",
         {
-            district: district,
-            type: type
+            District: district,
+            Type: type
         })
         .then(data => {
             async.mapSeries(data, merge2, (err, result) => {
@@ -193,7 +197,7 @@ app.post('/find/dist', (req, res) => {
     /*let results = search.findLocInDistrict(type, district);
      console.log(results);
      res.json(results);*/
-})
+});
 
 
 function merge2(item, cb) {
