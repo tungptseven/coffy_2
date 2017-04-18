@@ -124,7 +124,7 @@ app.get('/detail/:id', (req, res) => {
  });*/
 
 
-app.post('/find/Near', (req, res) => {
+app.post('/find/loc', (req, res) => {
     // let uLong = req.body['long'],
     //     uLat = req.body['lat'],
     //     uType = req.body['type'],
@@ -171,7 +171,7 @@ app.post('/find/Near', (req, res) => {
     // res.json(results);
 });
 
-app.post('/find/Dist', (req, res) => {
+app.post('/find/dist', (req, res) => {
     let type = parseFloat(req.body['inType2']),
         district = parseFloat(req.body['inDist']);
     //let db = promise.db;
@@ -201,7 +201,7 @@ app.post('/find/Dist', (req, res) => {
 
 
 //REST for Mobile
-app.post('/find/near', (req, res) => {
+app.post('/find/location', (req, res) => {
     // let uLong = req.body['long'],
     //     uLat = req.body['lat'],
     //     uType = req.body['type'],
@@ -248,7 +248,7 @@ app.post('/find/near', (req, res) => {
     // res.json(results);
 });
 
-app.post('/find/dist', (req, res) => {
+app.post('/find/district', (req, res) => {
     let type = parseFloat(req.body['inType2']),
         district = parseFloat(req.body['inDist']);
     //let db = promise.db;
