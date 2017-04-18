@@ -73,14 +73,14 @@
                 <!--<form action="/" method="post" id="locationSend">-->
 
                 <div class="col-sm-2 col-xs-12 submit" hidden="hidden">
-                    <form action="/find/near" method="post" id="nearForm">
+                    <form action="/find/Near" method="post" id="nearForm">
                         <input id="inLat" name="inLat">
                         <input id="inLong" name="inLong">
                         <input id="inType" name="inType">
                         <input id="inR" name="inR">
                     </form>
 
-                    <form action="/find/dist" method="post" id="distForm">
+                    <form action="/find/Dist" method="post" id="distForm">
                         <input id="inDist" name="inDist">
                         <input id="inType2" name="inType2">
                     </form>
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="col-sm-2 col-xs-12 district">
-                    <select name="district" class="select" id="district" onchange="load_form()">
+                    <select name="district" class="select" id="district" onchange="load_form2()">
                         <option>- Quận/Huyện -</option>
                         <option value="1">Quận Hà Đông</option>
                         <option value="2">Quận Hai Bà Trưng</option>
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="col-sm-2 col-xs-12 type">
-                    <select name="type" class="select" id="type" onchange="load_form()">
+                    <select name="type" class="select" id="type" onchange="load_form3()">
                         <option>- Thể loại -</option>
                         <option value="1">Restaurant</option>
                         <option value="2" selected="selected">Café/Dessert</option>
@@ -126,7 +126,7 @@
                     </select>
                 </div>
 
-                <div class="col-sm-2 col-xs-12 submit">
+                <div class="col-sm-2 col-xs-12 submit" hidden="hidden">
                     <input type="button" onclick="nearFunction()" value="FIND NEAR">
                     <input type="button" onclick="distFunction()" value="FIND DIST">
                 </div>
@@ -791,7 +791,7 @@
             r: $('#r').val(),
         }
         $.ajax({
-            url: "/find/near",
+            url: "/find/Near",
             type: "POST",
             dataType: "json",
             data: data,
@@ -815,7 +815,7 @@
 
         }
         $.ajax({
-            url: "/find/dist",
+            url: "/find/Dist",
             type: "POST",
             dataType: "application/json",
             data: data
@@ -826,6 +826,18 @@
         document.getElementById('inDist').value = document.getElementById('district').value;
         document.getElementById('inType').value = document.getElementById('type').value;
         document.getElementById('inR').value = document.getElementById('r').value;
+        document.getElementById('inType2').value = document.getElementById('type').value;
+        document.getElementById("nearForm").submit();
+    }
+
+    function load_form2() {
+        document.getElementById('inDist').value = document.getElementById('district').value;
+        document.getElementById('inType2').value = document.getElementById('type').value;
+        document.getElementById("distForm").submit();
+    }
+
+    function load_form3(){
+        document.getElementById('inType').value = document.getElementById('type').value;
         document.getElementById('inType2').value = document.getElementById('type').value;
     }
 
