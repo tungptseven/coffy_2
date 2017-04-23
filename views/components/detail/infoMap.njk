@@ -1,0 +1,112 @@
+<div class="info-map">
+    <h2>MAP INFO</h2>
+    <hr/>
+    <!--<div class="restaurant-map">
+        <img src="/public/img/map.jpg" class="img-responsive">
+    </div>-->
+
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            var uluru = {lat: {{ data.lat }}, lng: {{ data.long }}};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: uluru,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap">
+    </script>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Opening Time 
+                </div>
+                <span>{{ data.octime }}</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Prepared Time
+                </div>
+                <span>About 5 - 10mins</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Capacity
+                </div>
+                <span>50 adult</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Serving 
+                </div>
+                <span>Drink, Tea</span>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Suitable
+                </div>
+                <span>Morning, Afternoon, Evening</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Day off
+                </div>
+                <span>Holidays of the year</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Culinary style
+                </div>
+                <span>Asia</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Website
+                </div>
+                <a><span>www.facebook.com/{{ data.name }}</span></a>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Last time serving
+                </div>
+                <span>09:30 PM</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    Type
+                </div>
+                <span>{{ data.type }}</span>
+            </div>
+
+            <div class="restaurant-more-info">
+                <div class="info-label">
+                    For
+                </div>
+                <span>Couple, Group, Take away</span>
+            </div>
+
+        </div>
+    </div>
+</div>

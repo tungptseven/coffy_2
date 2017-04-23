@@ -1,0 +1,103 @@
+<section class="container-fluid tab">
+
+    <div class="container mieuta">
+        <div class="container" id="second-menu">
+            <div class="row">
+
+
+                <div class="col-sm-2 col-xs-12 submit" hidden="hidden">
+                    <form action="/find/loc" method="post" id="nearForm">
+                        <input id="inLat" name="inLat">
+                        <input id="inLong" name="inLong">
+                        <input id="inType" name="inType">
+                        <input id="inR" name="inR">
+                    </form>
+
+                    <form action="/find/dist" method="post" id="distForm">
+                        <input id="inDist" name="inDist">
+                        <input id="inType2" name="inType2">
+                    </form>
+
+                </div>
+
+                <div class="group-form">
+                  <div class="col-sm-2 col-xs-12 district form-group">
+                      <select name="district" class="select form-control" id="district" onchange="load_form2()">
+                          <option>- District -</option>
+                          <option value="1"> Hà Đông</option>
+                          <option value="2"> Hai Bà Trưng</option>
+                          <option value="3"> Hoàn Kiếm</option>
+                          <option value="4"> Ba Đình</option>
+                          <option value="5"> Thanh Xuân</option>
+                          <option value="6"> Đống Đa</option>
+                          <option value="7"> Cầu Giấy</option>
+                          <option value="8"> Tây Hồ</option>
+                          <option value="9"> Gia Lâm</option>
+                          <option value="10"> Hoàng Mai</option>
+                          <option value="11"> Nam Từ Liêm</option>
+                          <option value="12"> Bắc Từ Liêm</option>
+                          <option value="13"> Long Biên</option>
+                      </select>
+                  </div>
+
+                  <div class="col-sm-2 col-xs-12 type form-group">
+                      <select name="type" class="select form-control" id="type" onchange="load_form3()">
+                          <option>- Type -</option>
+                          <option value="1">Restaurant</option>
+                          <option value="2" selected="selected">Café/Dessert</option>
+                      </select>
+                  </div>
+
+                  <div class="col-sm-2 col-xs-12 radius form-group">
+                      <select name="r" class="select form-control" id="r" onchange="load_form()">
+                          <option>- Distance -</option>
+                          <option value="200">200m</option>
+                          <option value="500">500m</option>
+                          <option value="1000">1 km</option>
+                          <option value="2000">2 km</option>
+                          <option value="5000">5 km</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-2 col-xs-12 submit" hidden="hidden">
+                    <input type="button" type="submit" onclick="$("#nearForm").submit()" value="FIND NEAR">
+                    <input type="button" onclick="distFunction()" value="FIND DIST">
+                </div>
+                <!--</form>-->
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                {% for data in datas %}
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 special">
+                    <div class="list">
+                        <div class="item">
+                            <div class="image">
+                                <img src="{{ data.image }}">
+                                <div class="image-overlay">
+                                    <a href="/detail/{{ data.id_location }}"><span>Detail</span></a>
+                                </div>
+                            </div>
+                            <div class="description">
+                                <span>{{ data.rate }}</span>
+                                <a href="/detail/{{ data.id_location }}" class="descriptionName">
+                                    <h3>{{ data.name }}</h3>
+                                </a>
+                                <p>{{ data.address }}, {{ data.district }}, Hà Nội</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p>NOT FOUND</p>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,48 @@
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="image-product">
+            <img src="{{ data.image }}" class="width-img-100">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="diachi">
+            <ol class="breadcrumb">
+                <li><a href="#">Hà Nội <i class="fa fa-angle-right"></i></a></li>
+                <li><a href="#">{{ data.district }}<i class="fa fa-angle-right"></i></a></li>
+            </ol>
+        </div>
+
+        <h1>{{ data.name }}</h1>
+        <div class="description-product">
+            <p><i class="fa fa-location-arrow"></i><span>{{ data.address }},{{ data.district }}, Hà Nội</span></p>
+            <hr/>
+
+            <div class="course-detail-tittle">
+                <div class="course-info-numberStd">
+                    <div>
+                        <p><span class="counter" data-count="9.6">0,0</span> Position</p>
+                        <!--<p><span class="counter" data-count="6.9">0.0</span>Space</p>-->
+                        <p><span class="counter" data-count="9.6">0.0</span> Service</p>
+                        <!--<p><span class="counter" data-count="9.6">0.0</span>/3 Comment</p>-->
+                        <p><span class="counter" data-count="9.6">0.0</span> Price</p>
+                    </div>
+                    <div>
+                        <p><span class="counter" id="index" data-count="{{ data.rate }}">0.0</span> Quality </p>
+                    </div>
+                    <div class="rating">
+                      <h4 style="text-align:center"> Rating </h4><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <p><i class="fa fa-clock-o"></i><span>{{ data.octime }}<span style="color: #d32323; font-weight: bold">Active</span> </span>
+            </p>
+            <p><i class="fa fa-tags"></i><span>30.000đ - 60.000đ</span></p>
+            <p><i class="fa fa-phone"></i><span>0433.200.2790</span></p>
+        </div>
+    </div>
+</div>
